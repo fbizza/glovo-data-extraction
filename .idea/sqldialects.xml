@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/CM/avg_cm_prime_orders_by_city.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/CM/avg_total_revenue_prime_orders_by-city.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/NCs/NCs with segmentation.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/NCs/NCs_by_year_and_month.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/NCs/NCs_store_ranking.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/growth_explanation/growth_explaination.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/growth_explanation/grwoth_expl_deck.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/growth_explanation/top_10_partners_YoY_growth.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/launch_date/date_of_first_order.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/new_stores/new_stores_warsaw_with_promo.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/new_stores/orders_in_WAW_partners.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/orders_by_month/orders_by_month.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prime_churn/prime_churn_by_city.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/promos/%_prime_promos_ytd.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/promos/lipton_promo.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prove_prima_settimana/NC and orders across the cities.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prove_prima_settimana/NC and orderss accross cities and regions.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prove_prima_settimana/NC evolution since 2022.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prove_prima_settimana/Top partners with segment.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prove_prima_settimana/Top partners.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prove_prima_settimana/aggiornamento_excel_ms%_v_fra.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prove_prima_settimana/aggiornamento_excel_ms%_v_kuba.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prove_prima_settimana/instals_GDA.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prove_prima_settimana/mc_donald_customers.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prove_prima_settimana/orders_june_2024.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/prove_prima_settimana/subway.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/signups/weekly_signups.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/visa-transactions/abs_monthly_visa_transactions.sql" dialect="GenericSQL" />
+    <file url="PROJECT" dialect="GenericSQL" />
+  </component>
+</project>

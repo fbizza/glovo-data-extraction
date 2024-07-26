@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="@starburst.g8s-data-platform-prod.glovoint.com" single-connection="true" uuid="42cd0c50-8872-4cc9-ab2f-af6ed59ea5bc">
+      <driver-ref>trino</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>io.trino.jdbc.TrinoDriver</jdbc-driver>
+      <jdbc-url>jdbc:trino://starburst.g8s-data-platform-prod.glovoint.com:443</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+      <driver-properties>
+        <property name="externalAuthentication" value="true" />
+        <property name="user" value="francesco.bizzarri@glovoapp.com" />
+      </driver-properties>
+    </data-source>
+  </component>
+</project>

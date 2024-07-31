@@ -3,8 +3,7 @@
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/CM/avg_cm_prime_orders_by_city.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/CM/avg_total_revenue_prime_orders_by-city.sql" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/NCs/NCs_by_day.sql" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/NCs/NCs_by_year_and_month.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/NCs/NCs_by_month_and_stores.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/NCs/NCs_store_ranking.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/NCs/NCs_with_segmentation.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/growth_explanation/growth_explaination.sql" dialect="GenericSQL" />

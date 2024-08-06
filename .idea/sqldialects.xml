@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/AMORU-AMONU/amoru_amonu.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/CM/avg_cm_prime_orders_by_city.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/CM/avg_total_revenue_prime_orders_by-city.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/NCs/NCs_by_month_and_stores.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/NCs/NCs_store_ranking.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/NCs/NCs_with_segmentation.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/NCs/new-reactivated-recurrent.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/growth_explanation/growth_explaination.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/growth_explanation/grwoth_expl_deck.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/growth_explanation/top_10_partners_YoY_growth.sql" dialect="GenericSQL" />
@@ -17,6 +19,7 @@
     <file url="file://$PROJECT_DIR$/promos/%_prime_promos_ytd.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/promos/lipton_promo.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/promos/number_of_inserted_promocodes.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/promos/sxgy.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/prove_prima_settimana/NC and orders across the cities.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/prove_prima_settimana/NC and orderss accross cities and regions.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/prove_prima_settimana/NC evolution since 2022.sql" dialect="GenericSQL" />

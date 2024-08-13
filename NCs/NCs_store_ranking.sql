@@ -9,7 +9,7 @@ WITH ranked_stores AS (
     FROM
         delta.central_order_descriptors_odp.order_descriptors_v2 o
     WHERE
-        o.order_started_local_at >= DATE('2024-07-01') AND o.order_started_local_at <= DATE('2024-07-17') AND
+        o.order_started_local_at >= DATE('2024-07-01') AND o.order_started_local_at <= DATE('2024-08-01') AND
         o.order_country_code = 'PL' AND
         o.order_final_status = 'DeliveredStatus' AND
         o.order_parent_relationship_type IS NULL

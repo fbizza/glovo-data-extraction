@@ -5,7 +5,7 @@ WITH nc as (
       AND order_final_status = 'DeliveredStatus'
       AND order_parent_relationship_type IS NULL
       AND order_is_first_delivered_order = true
-      AND order_started_local_at < DATE '2023-10-31' and order_started_local_at >= DATE '2023-10-01'
+      AND order_started_local_at < DATE '2023-11-01' and order_started_local_at >= DATE '2023-10-01'
 ),
     rc AS (
     SELECT DISTINCT customer_id
@@ -13,7 +13,7 @@ WITH nc as (
     WHERE order_country_code = 'PL'
       AND order_final_status = 'DeliveredStatus'
       AND order_parent_relationship_type IS NULL
-      AND order_started_local_at < DATE '2023-10-31' and order_started_local_at >= DATE '2023-10-01'
+      AND order_started_local_at < DATE '2023-11-01' and order_started_local_at >= DATE '2023-10-01'
     EXCEPT
     SELECT * FROM nc
 ),
@@ -21,7 +21,7 @@ WITH nc as (
     SELECT customer_id, date(MIN(order_started_local_at)) AS monthly_first_order_date
     FROM delta.central_order_descriptors_odp.order_descriptors_v2
     WHERE customer_id IN (SELECT customer_id FROM rc)
-    AND order_started_local_at < DATE '2023-10-31' and order_started_local_at >= DATE '2023-10-01'
+    AND order_started_local_at < DATE '2023-11-01' and order_started_local_at >= DATE '2023-10-01'
     GROUP BY customer_id
 ),
     last_order_before_first AS (

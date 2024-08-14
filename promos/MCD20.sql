@@ -83,8 +83,9 @@ AS (
         1.000*count(distinct o.order_id)/count(distinct customer_id) as freq,
         count(case when contribution_margin_eur < 0 then o.order_id else null end) negative_cm_orders,
         count(case when contribution_margin_eur > 0 then o.order_id else null end) positive_cm_orders,
-        1.00*count(case when contribution_margin_eur < 0 then o.order_id else null end)/count(o.order_id) as negative_cm_orders_percentage,
-        1.00*count(case when contribution_margin_eur > 0 then o.order_id else null end)/count(o.order_id) as positive_cm_orders_percentage,
+        1.000*count(case when contribution_margin_eur < 0 then o.order_id else null end)/count(o.order_id) as negative_cm_orders_percentage,
+        1.000*count(case when contribution_margin_eur > 0 then o.order_id else null end)/count(o.order_id) as positive_cm_orders_percentage,
+        stddev(contribution_margin_eur) as stddev,
         avg (contribution_margin_eur) as avg_contribution_margin_eur
         from delta.central_order_descriptors_odp.order_descriptors_v2 o LEFT JOIN delta.finance_financial_reports_odp.pnl_order_level f
                 ON o.order_id = f.order_id
@@ -100,8 +101,9 @@ AS (
         1.000*count(distinct o.order_id)/count(distinct customer_id) as freq,
         count(case when contribution_margin_eur < 0 then o.order_id else null end) negative_cm_orders,
         count(case when contribution_margin_eur > 0 then o.order_id else null end) positive_cm_orders,
-        1.00*count(case when contribution_margin_eur < 0 then o.order_id else null end)/count(o.order_id) as negative_cm_orders_percentage,
-        1.00*count(case when contribution_margin_eur > 0 then o.order_id else null end)/count(o.order_id) as positive_cm_orders_percentage,
+        1.000*count(case when contribution_margin_eur < 0 then o.order_id else null end)/count(o.order_id) as negative_cm_orders_percentage,
+        1.000*count(case when contribution_margin_eur > 0 then o.order_id else null end)/count(o.order_id) as positive_cm_orders_percentage,
+        stddev(contribution_margin_eur) as stddev,
         avg (contribution_margin_eur) as avg_contribution_margin_eur
         from delta.central_order_descriptors_odp.order_descriptors_v2 o LEFT JOIN delta.finance_financial_reports_odp.pnl_order_level f
                 ON o.order_id = f.order_id
@@ -117,8 +119,9 @@ AS (
         1.000*count(distinct o.order_id)/count(distinct customer_id) as freq,
         count(case when contribution_margin_eur < 0 then o.order_id else null end) negative_cm_orders,
         count(case when contribution_margin_eur > 0 then o.order_id else null end) positive_cm_orders,
-        1.00*count(case when contribution_margin_eur < 0 then o.order_id else null end)/count(o.order_id) as negative_cm_orders_percentage,
-        1.00*count(case when contribution_margin_eur > 0 then o.order_id else null end)/count(o.order_id) as positive_cm_orders_percentage,
+        1.000*count(case when contribution_margin_eur < 0 then o.order_id else null end)/count(o.order_id) as negative_cm_orders_percentage,
+        1.000*count(case when contribution_margin_eur > 0 then o.order_id else null end)/count(o.order_id) as positive_cm_orders_percentage,
+        stddev(contribution_margin_eur) as stddev,
         avg (contribution_margin_eur) as avg_contribution_margin_eur
         from delta.central_order_descriptors_odp.order_descriptors_v2 o LEFT JOIN delta.finance_financial_reports_odp.pnl_order_level f
                 ON o.order_id = f.order_id

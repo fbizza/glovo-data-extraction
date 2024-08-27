@@ -86,7 +86,8 @@ AS (
         1.000*count(case when contribution_margin_eur < 0 then o.order_id else null end)/count(o.order_id) as negative_cm_orders_percentage,
         1.000*count(case when contribution_margin_eur > 0 then o.order_id else null end)/count(o.order_id) as positive_cm_orders_percentage,
         stddev(contribution_margin_eur) as stddev,
-        avg (contribution_margin_eur) as avg_contribution_margin_eur
+        avg (contribution_margin_eur) as avg_contribution_margin_eur,
+        count (distinct o.store_name) as number_of_different_restaurants
         from delta.central_order_descriptors_odp.order_descriptors_v2 o LEFT JOIN delta.finance_financial_reports_odp.pnl_order_level f
                 ON o.order_id = f.order_id
         where order_final_status = 'DeliveredStatus'
@@ -104,7 +105,8 @@ AS (
         1.000*count(case when contribution_margin_eur < 0 then o.order_id else null end)/count(o.order_id) as negative_cm_orders_percentage,
         1.000*count(case when contribution_margin_eur > 0 then o.order_id else null end)/count(o.order_id) as positive_cm_orders_percentage,
         stddev(contribution_margin_eur) as stddev,
-        avg (contribution_margin_eur) as avg_contribution_margin_eur
+        avg (contribution_margin_eur) as avg_contribution_margin_eur,
+        count (distinct o.store_name) as number_of_different_restaurants
         from delta.central_order_descriptors_odp.order_descriptors_v2 o LEFT JOIN delta.finance_financial_reports_odp.pnl_order_level f
                 ON o.order_id = f.order_id
         where order_final_status = 'DeliveredStatus'
@@ -122,7 +124,8 @@ AS (
         1.000*count(case when contribution_margin_eur < 0 then o.order_id else null end)/count(o.order_id) as negative_cm_orders_percentage,
         1.000*count(case when contribution_margin_eur > 0 then o.order_id else null end)/count(o.order_id) as positive_cm_orders_percentage,
         stddev(contribution_margin_eur) as stddev,
-        avg (contribution_margin_eur) as avg_contribution_margin_eur
+        avg (contribution_margin_eur) as avg_contribution_margin_eur,
+        count (distinct o.store_name) as number_of_different_restaurants
         from delta.central_order_descriptors_odp.order_descriptors_v2 o LEFT JOIN delta.finance_financial_reports_odp.pnl_order_level f
                 ON o.order_id = f.order_id
         where order_final_status = 'DeliveredStatus'
@@ -137,4 +140,3 @@ UNION
 select 'control_2', * from control_group_2
 order by 1 asc
 
---Todo add retention rate

@@ -2,30 +2,44 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/AMORU-AMONU/amoru_amonu.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/AOV-GMV/aov_gmv.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/AOV-GMV/baskets_aov.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/AOV-GMV/baskets_items_aov.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/CM/avg_cm_prime_orders_by_city.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/CM/avg_total_revenue_prime_orders_by-city.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/NCs/NCs_by_month_and_stores.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/NCs/NCs_store_ranking.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/NCs/NCs_with_segmentation.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/NCs/new-reactivated-recurrent.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/QSR/qsr_customers.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/active-users/active_users.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/basket_size/tiers_percentages.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/buckets/aov_buckets_rc_nc_ongoing.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/buckets/aov_per_item_rc_nc_ongoing.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/conversion-rate/conversion_rate_per_category.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/growth_explanation/growth_explaination.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/growth_explanation/grwoth_expl_deck.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/growth_explanation/top_10_partners_YoY_growth.sql" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/installs/installs.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/installs/installs_signup_nc.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/launch_date/date_of_first_order.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/lto/lto.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/new_stores/new_stores_warsaw_with_promo.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/new_stores/orders_in_WAW_partners.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/orders/number_of_orders_with_filters.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/orders/orders_by_city.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/orders_by_month/orders_by_month.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/prime_churn/prime_churn_by_city.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/promos/%_prime_promos_ytd.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/promos/MCD20.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/promos/lipton_promo.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/promos/n_avg_different_stores_per_user.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/promos/number_of_inserted_promocodes.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/promos/number_of_orders_promocode.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/promos/promo_order_yes_no.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/promos/promo_yes_no_per_customer_group.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/promos/roi.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/promos/sxgy.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/promos/total_discounts.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/prove_prima_settimana/NC and orders across the cities.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/prove_prima_settimana/NC and orderss accross cities and regions.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/prove_prima_settimana/NC evolution since 2022.sql" dialect="GenericSQL" />
@@ -39,7 +53,9 @@
     <file url="file://$PROJECT_DIR$/recurrent-customers/recurrent-customers-analyisis.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/retention/avg_retention_by_store.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/retention/retention_cohorts.sql" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/signups/check_signups.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/retention/retention_of_given_customers_group.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/signups/deep_check_signups.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/signups/sign_ups.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/specialties/active_users_specialties.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/visa-transactions/abs_monthly_visa_transactions.sql" dialect="GenericSQL" />
     <file url="PROJECT" dialect="GenericSQL" />

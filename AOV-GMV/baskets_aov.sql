@@ -13,7 +13,7 @@ WITH order_data AS (
         ROUND(AVG(order_total_purchase_eur), 2) AS aov
     FROM delta.central_order_descriptors_odp.order_descriptors_v2 o
     WHERE o.order_country_code = 'PL'
-        AND date(order_started_local_at) >= date '2024-08-01'
+        AND date(order_started_local_at) >= date '2024-01-01'
         AND order_final_status = 'DeliveredStatus'
         AND order_parent_relationship_type IS NULL
     GROUP BY 1

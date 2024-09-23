@@ -10,7 +10,8 @@ WITH order_data AS (
             ELSE '30+'
         END AS order_bucket,
         COUNT(order_id) AS orders,
-        ROUND(AVG(order_total_purchase_eur), 2) AS aov
+        1.00*count(distinct store_name) as n_distinct_partners,
+        ROUND(AVG(order_total_purchase_eur), 2) AS avg_aov
     FROM delta.central_order_descriptors_odp.order_descriptors_v2 o
     WHERE o.order_country_code = 'PL'
         AND date(order_started_local_at) >= date '2024-01-01'
@@ -21,7 +22,9 @@ WITH order_data AS (
 SELECT
     order_bucket,
     orders,
-    aov,
+    avg_aov,
+    n_distinct_partners,
+    1.00* orders / n_distinct_partners as avg_n_order_per_partner,
     ROUND((orders * 100.0 / total_orders), 2) AS percentage_of_total_orders
 FROM order_data,
     (SELECT SUM(orders) AS total_orders FROM order_data) AS total

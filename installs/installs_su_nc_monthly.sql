@@ -59,3 +59,5 @@ JOIN
     ON COALESCE(i.month, s.month) = n.month
 ORDER BY
     month ASC;
+
+

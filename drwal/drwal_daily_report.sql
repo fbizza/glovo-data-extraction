@@ -7,7 +7,7 @@ WITH mcdonalds_orders_last_year AS (
   WHERE
     order_country_code = 'PL'
     AND order_parent_relationship_type IS NULL
-    AND order_started_local_at >= DATE('2023-11-20')
+    AND order_started_local_at >= DATE('2023-11-20')    ----------------------------------------------------------
     AND order_final_status = 'DeliveredStatus'
     AND store_name = 'McDonald''s'
     AND p_creation_date > DATE('2023-08-01')
@@ -97,7 +97,7 @@ cancelled_orders_last_year AS (
     date_trunc('day', partner_ops_kpis.p_day_date) AS day,
     COALESCE(SUM(cancellation_dtp.cancelled_orders_cdtp), 0) AS cancelled_orders
   FROM
-    delta.partner__details__odp.partner_infos_said_day_lv_order_based AS partner_ops_kpis
+      delta.partner__details__odp.partner_infos_said_day_lv_order_based AS partner_ops_kpis
   LEFT JOIN
     delta.partner__cancellation_dtp__odp.canc_dtp_said_day_lv AS cancellation_dtp ON partner_ops_kpis.pk = cancellation_dtp.pk
   WHERE
@@ -119,6 +119,52 @@ cancelled_orders_this_year AS (
     AND partner_ops_kpis.store_name = 'McDonald''s'
     AND partner_ops_kpis.p_day_date >= DATE('2024-09-20')
   GROUP BY 1
+),
+promocode_usage AS (
+  SELECT
+    date_trunc('day', promocode_uses_created_at) AS day,
+    COUNT(CASE WHEN a.promocode_uses_id IS NOT NULL THEN 1 END) AS times_inserted,
+    COUNT(CASE WHEN b.promocode_use_id IS NOT NULL THEN 1 END) AS times_used
+  FROM
+    delta.growth_discounts_odp.discounts_promocode_uses a
+  FULL OUTER JOIN
+    delta.growth_pricing_discounts_odp.pricing_discounts b
+    ON a.promocode_id = b.promocode_id
+    AND a.promocode_uses_id = b.promocode_use_id
+  LEFT JOIN
+    (SELECT DISTINCT customer_id FROM delta.central_order_descriptors_odp.order_descriptors_v2) o
+    ON o.customer_id = a.customer_id
+  WHERE
+    a.promocode_id = 2580410773
+  GROUP BY 1
+),
+avg_delivery_time AS (
+  SELECT
+  date_trunc('day', o.order_started_local_at) AS day,
+  AVG(DATE_DIFF('minute', o.order_activated_local_at, o.order_terminated_local_at)) AS delivery_time,
+  1.000*SUM(CASE WHEN DATE_DIFF('minute', o.order_activated_local_at, o.order_terminated_local_at) < 60 THEN 1 ELSE 0 END) / COUNT(*) AS share_less_than_60_minutes
+FROM delta.central_order_descriptors_odp.order_descriptors_v2 AS o
+WHERE o.order_handling_strategy = 'GEN2'
+  AND o.order_parent_relationship_type IS NULL
+  AND o.order_final_status = 'DeliveredStatus'
+  --AND o.store_name = 'McDonald''s'
+  AND o.order_started_local_at >= DATE('2024-09-20')
+  AND o.p_creation_date > DATE('2024-08-01')
+GROUP BY 1
+),
+avg_delivery_time_mcdo AS (
+  SELECT
+  date_trunc('day', o.order_started_local_at) AS day,
+  AVG(DATE_DIFF('minute', o.order_activated_local_at, o.order_terminated_local_at)) AS delivery_time_mcdo,
+  1.000*SUM(CASE WHEN DATE_DIFF('minute', o.order_activated_local_at, o.order_terminated_local_at) < 60 THEN 1 ELSE 0 END) / COUNT(*) AS share_less_than_60_minutes_mcdo
+FROM delta.central_order_descriptors_odp.order_descriptors_v2 AS o
+WHERE o.order_handling_strategy = 'GEN2'
+  AND o.order_parent_relationship_type IS NULL
+  AND o.order_final_status = 'DeliveredStatus'
+  AND o.store_name = 'McDonald''s'
+  AND o.order_started_local_at >= DATE('2024-09-20')
+  AND o.p_creation_date > DATE('2024-08-01')
+GROUP BY 1
 ),
 aligned_orders_last_year AS (
   SELECT
@@ -233,8 +279,15 @@ SELECT
   absolute_difference,
   yoy_growth,
   share_of_mcdonalds_orders_this_year,
-  share_of_mcdonalds_orders_last_year
+  share_of_mcdonalds_orders_last_year,
+  p.times_inserted AS promocode_times_inserted,
+  p.times_used AS promocode_times_used,
+  round(dt.delivery_time, 2) as delivery_time,
+  dt.share_less_than_60_minutes as share_less_than_60,
+  round(dt_mc.delivery_time_mcdo, 2) as delivery_time_mcdo,
+  dt_mc.share_less_than_60_minutes_mcdo as share_less_than_60_mcdo
 FROM
-  comparison
+  comparison c left join promocode_usage p on c.actual_date_this_year = p.day
+            left join (avg_delivery_time dt left join avg_delivery_time_mcdo dt_mc on dt.day = dt_mc.day) on c.actual_date_this_year = dt.day
 ORDER BY
   promotion_day ASC;

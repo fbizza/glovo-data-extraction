@@ -5,7 +5,7 @@ FROM "delta".growth_discounts_odp.discounts_promocode_uses pu
                    ON pc.promocode_id = pu.promocode_id
 WHERE pc.promotion_id in (32042682,31184592)
 
---usa questa:
+
 
 WITH orders AS (
     SELECT
@@ -40,7 +40,7 @@ insertions as (
 )
 SELECT o.*, i.* FROM orders o left join insertions i on o.promocode_promotion_id = i.promotion_id;
 
-
+--usa questa:
 SELECT
 a.promocode_id,
     COUNT(CASE WHEN a.promocode_uses_id IS NOT NULL THEN 1 END) AS times_inserted,

@@ -1,9 +1,9 @@
 -- Define the dates as variables
 WITH vars AS (
   SELECT
-    DATE('2024-09-20') AS this_year_start_date,
+    DATE('2024-06-09') AS this_year_start_date,
     DATE('2023-11-08') AS last_year_start_date,
-    2580410773 as promocode_id,
+    2597604350 as promocode_id,
     DATE('2023-08-01') AS creation_date_cutoff
 ),
 mcdonalds_orders_last_year AS (
@@ -99,7 +99,7 @@ product_orders_this_year AS (
     AND order_started_local_at >= (SELECT this_year_start_date FROM vars) AND o.p_creation_date > (SELECT creation_date_cutoff FROM vars) AND b.p_creation_date > (SELECT creation_date_cutoff FROM vars)
   GROUP BY 1
 ),
-cancelled_orders_last_year AS (
+cancelled_orders_last_year_mcdo AS (
   SELECT
     date_trunc('day', partner_ops_kpis.p_day_date) AS day,
     COALESCE(SUM(cancellation_dtp.cancelled_orders_cdtp), 0) AS cancelled_orders
@@ -113,7 +113,7 @@ cancelled_orders_last_year AS (
     AND partner_ops_kpis.p_day_date >= (SELECT last_year_start_date FROM vars)
   GROUP BY 1
 ),
-cancelled_orders_this_year AS (
+cancelled_orders_this_year_mcdo AS (
   SELECT
     date_trunc('day', partner_ops_kpis.p_day_date) AS day,
     COALESCE(SUM(cancellation_dtp.cancelled_orders_cdtp), 0) AS cancelled_orders
@@ -125,6 +125,34 @@ cancelled_orders_this_year AS (
     partner_ops_kpis.order_country_code = 'PL'
     AND partner_ops_kpis.store_name = 'McDonald''s'
     AND partner_ops_kpis.p_day_date >= (SELECT this_year_start_date FROM vars)
+  GROUP BY 1
+),
+cancelled_orders_last_year AS (
+  SELECT
+    date_trunc('day', partner_ops_kpis.p_day_date) AS day,
+    COALESCE(SUM(cancellation_dtp.cancelled_orders_cdtp), 0) AS cancelled_orders
+  FROM
+      delta.partner__details__odp.partner_infos_said_day_lv_order_based AS partner_ops_kpis
+  LEFT JOIN
+    delta.partner__cancellation_dtp__odp.canc_dtp_said_day_lv AS cancellation_dtp ON partner_ops_kpis.pk = cancellation_dtp.pk
+  WHERE
+    partner_ops_kpis.order_country_code = 'PL'
+    AND partner_ops_kpis.p_day_date >= (SELECT last_year_start_date FROM vars)
+    AND partner_ops_kpis.store_vertical = 'Food'
+  GROUP BY 1
+),
+cancelled_orders_this_year AS (
+  SELECT
+    date_trunc('day', partner_ops_kpis.p_day_date) AS day,
+    COALESCE(SUM(cancellation_dtp.cancelled_orders_cdtp), 0) AS cancelled_orders
+  FROM
+    delta.partner__details__odp.partner_infos_said_day_lv_order_based AS partner_ops_kpis
+  LEFT JOIN
+    delta.partner__cancellation_dtp__odp.canc_dtp_said_day_lv AS cancellation_dtp ON partner_ops_kpis.pk = cancellation_dtp.pk
+  WHERE
+    partner_ops_kpis.order_country_code = 'PL'
+    AND partner_ops_kpis.p_day_date >= (SELECT this_year_start_date FROM vars)
+    AND partner_ops_kpis.store_vertical = 'Food'
   GROUP BY 1
 ),
 promocode_usage AS (
@@ -236,6 +264,22 @@ aligned_cancelled_orders_this_year AS (
   FROM
     cancelled_orders_this_year
 ),
+aligned_cancelled_orders_last_year_mcdo AS (
+  SELECT
+    day AS actual_date_last_year,
+    cancelled_orders,
+    ROW_NUMBER() OVER (ORDER BY day) AS day_number
+  FROM
+    cancelled_orders_last_year_mcdo
+),
+aligned_cancelled_orders_this_year_mcdo AS (
+  SELECT
+    day AS actual_date_this_year,
+    cancelled_orders,
+    ROW_NUMBER() OVER (ORDER BY day) AS day_number
+  FROM
+    cancelled_orders_this_year_mcdo
+),
 comparison AS (
   SELECT
     this_year.day_number AS promotion_day,
@@ -247,8 +291,10 @@ comparison AS (
     total_last_year.total_orders AS total_orders_last_year,
     product_this_year.product_orders AS product_orders_this_year,
     product_last_year.product_orders AS product_orders_last_year,
-    cancelled_this_year.cancelled_orders AS cancelled_orders_this_year_mcdo,
-    cancelled_last_year.cancelled_orders AS cancelled_orders_last_year_mcdo,
+    cancelled_this_year_mcdo.cancelled_orders AS cancelled_orders_this_year_mcdo,
+    cancelled_last_year_mcdo.cancelled_orders AS cancelled_orders_last_year_mcdo,
+    cancelled_this_year.cancelled_orders AS cancelled_orders_this_year,
+    cancelled_last_year.cancelled_orders AS cancelled_orders_last_year,
     (this_year.mcdonalds_orders - last_year.mcdonalds_orders) AS absolute_difference,
     (1.000 * (this_year.mcdonalds_orders - last_year.mcdonalds_orders) / NULLIF(last_year.mcdonalds_orders, 0)) * 100 AS yoy_growth,
     (1.000 * this_year.mcdonalds_orders / NULLIF(total_this_year.total_orders, 0)) * 100 AS share_of_mcdonalds_orders_this_year,
@@ -269,6 +315,10 @@ comparison AS (
     aligned_cancelled_orders_this_year cancelled_this_year ON this_year.day_number = cancelled_this_year.day_number
   LEFT JOIN
     aligned_cancelled_orders_last_year cancelled_last_year ON last_year.day_number = cancelled_last_year.day_number
+  LEFT JOIN
+    aligned_cancelled_orders_this_year_mcdo cancelled_this_year_mcdo ON this_year.day_number = cancelled_this_year_mcdo.day_number
+  LEFT JOIN
+    aligned_cancelled_orders_last_year_mcdo cancelled_last_year_mcdo ON last_year.day_number = cancelled_last_year_mcdo.day_number
 )
 SELECT
   promotion_day,
@@ -291,7 +341,11 @@ SELECT
   round(dt.delivery_time, 2) as delivery_time,
   dt.share_less_than_60_minutes as share_less_than_60,
   round(dt_mc.delivery_time_mcdo, 2) as delivery_time_mcdo,
-  dt_mc.share_less_than_60_minutes_mcdo as share_less_than_60_mcdo
+  dt_mc.share_less_than_60_minutes_mcdo as share_less_than_60_mcdo,
+  cancelled_orders_this_year_mcdo,
+  cancelled_orders_last_year_mcdo,
+  cancelled_orders_this_year as cancelled_orders_this_year_food,
+  cancelled_orders_last_year as cancelled_orders_last_year_food
 FROM
   comparison c left join promocode_usage p on c.actual_date_this_year = p.day left join (avg_delivery_time dt left join avg_delivery_time_mcdo dt_mc on dt.day = dt_mc.day) on c.actual_date_this_year = dt.day
 ORDER BY
